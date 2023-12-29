@@ -5,8 +5,9 @@ import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
+import config from './global-config';
 
-const stripePromise = loadStripe('pk_test_51OPm7wH00sXBWLdNeKIe6uC0lJje1c5SF3ipfbvgRZJpa4QKKLoDJHBIJoyh9F3eO3dpmbmDN3CRIWKIrasiHMUD00Uys01FRo');
+const stripePromise = loadStripe(config.stripePublicKey);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

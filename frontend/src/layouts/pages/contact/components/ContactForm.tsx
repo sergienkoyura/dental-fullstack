@@ -2,6 +2,7 @@ import {useState} from "react";
 import publicService from "../../../../services/public.service";
 import ContactRequest from "../../../../models/ContactRequest";
 import ReCAPTCHA from 'react-google-recaptcha';
+import config from "../../../../global-config";
 
 export const ContactForm = () => {
 
@@ -68,7 +69,7 @@ export const ContactForm = () => {
                                 </div>
                                 <div className="form-block mb-4">
                                     <ReCAPTCHA
-                                        sitekey="6LePNkApAAAAAPcN6JUBStXmmglcVsmyPPgiU_co"
+                                        sitekey={config.captchaSiteKey}
                                         onChange={handleRecaptchaVerify}
                                     />
                                 </div>

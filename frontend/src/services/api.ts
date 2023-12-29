@@ -1,9 +1,10 @@
 import axios from "axios";
 import TokenService from "./token.service";
 import authService from "./auth.service";
+import config from "../global-config";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8080/api/v1",
+  baseURL: config.baseURI,
   headers: {
     "Content-Type": "application/json",
   },
