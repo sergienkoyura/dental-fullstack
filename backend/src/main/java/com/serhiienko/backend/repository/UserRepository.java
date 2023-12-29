@@ -1,9 +1,7 @@
 package com.serhiienko.backend.repository;
 
-import com.serhiienko.backend.model.dto.UserDTO;
 import com.serhiienko.backend.model.entity.User;
 import com.serhiienko.backend.model.enumeration.Role;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,13 +1,10 @@
 package com.serhiienko.backend.service.impl;
 
 import com.serhiienko.backend.model.entity.MedicalCard;
-import com.serhiienko.backend.model.entity.User;
 import com.serhiienko.backend.repository.MedicalCardRepository;
-import com.serhiienko.backend.repository.UserRepository;
 import com.serhiienko.backend.service.MedicalCardService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

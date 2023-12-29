@@ -2,15 +2,13 @@ package com.serhiienko.backend.controller;
 
 import com.serhiienko.backend.exception.BadRequestException;
 import com.serhiienko.backend.model.dto.ProfileDTO;
-import com.serhiienko.backend.model.entity.User;
-import com.serhiienko.backend.model.form.UserRequest;
-import com.serhiienko.backend.security.util.JwtUtils;
 import com.serhiienko.backend.model.dto.UserDTO;
 import com.serhiienko.backend.model.form.PasswordRequest;
+import com.serhiienko.backend.model.form.UserRequest;
+import com.serhiienko.backend.security.util.JwtUtils;
 import com.serhiienko.backend.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;

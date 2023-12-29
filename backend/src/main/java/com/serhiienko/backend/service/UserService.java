@@ -5,7 +5,6 @@ import com.serhiienko.backend.model.dto.UserDTO;
 import com.serhiienko.backend.model.entity.User;
 import com.serhiienko.backend.model.form.PasswordRequest;
 import com.serhiienko.backend.model.form.UserRequest;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 

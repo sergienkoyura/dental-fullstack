@@ -4,7 +4,6 @@ import com.serhiienko.backend.model.entity.MedicalCard;
 import com.serhiienko.backend.model.entity.User;
 import com.serhiienko.backend.model.enumeration.Role;
 import com.serhiienko.backend.repository.UserRepository;
-import com.serhiienko.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

@@ -11,7 +11,6 @@ import com.serhiienko.backend.model.form.PasswordRequest;
 import com.serhiienko.backend.model.form.UserRequest;
 import com.serhiienko.backend.model.mapper.UserMapper;
 import com.serhiienko.backend.repository.MedicalCardRepository;
-import com.serhiienko.backend.repository.TokenRepository;
 import com.serhiienko.backend.repository.UserRepository;
 import com.serhiienko.backend.service.UserService;
 import jakarta.transaction.Transactional;

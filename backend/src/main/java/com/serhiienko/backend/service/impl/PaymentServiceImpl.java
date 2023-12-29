@@ -1,6 +1,5 @@
 package com.serhiienko.backend.service.impl;
 
-import com.serhiienko.backend.model.dto.AppointmentDTO;
 import com.serhiienko.backend.model.entity.Appointment;
 import com.serhiienko.backend.model.entity.Payment;
 import com.serhiienko.backend.model.form.PaymentInfoRequest;

@@ -1,9 +1,6 @@
 package com.serhiienko.backend.service;
 
-import com.serhiienko.backend.model.dto.UserDTO;
 import com.serhiienko.backend.model.entity.Token;
-import com.serhiienko.backend.model.form.PasswordRequest;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
