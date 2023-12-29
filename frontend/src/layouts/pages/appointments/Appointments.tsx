@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import MakeAppointment from "./components/MakeAppointment";
 import ScheduledVisits from "./components/ScheduledVisits";
 import HistoryVisits from "./components/HistoryVisits";

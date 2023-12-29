@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import appointmentService from "../../../../services/appointment.service";
 import AppointmentDTO from "../../../../models/AppointmentDTO";
-import { SpinnerLoading } from "../../../utils/SpinnerLoading";
+import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 import AppointmentBlock from "./AppointmentBlock";
-import { Pagination } from "../../../utils/Pagination";
+import {Pagination} from "../../../utils/Pagination";
 import PaymentModal from "./PaymentModal";
 
 export const ScheduledVisits: React.FC<{}> = (props) => {

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import React, {useState} from "react";
+import {Link, useHistory} from "react-router-dom";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import authService from "./../../../services/auth.service";
 

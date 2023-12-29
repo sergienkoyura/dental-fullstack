@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import adminService from "../../../../../services/admin.service";
-import TimeEnum from "../../../../../models/TimeEnum";
-import PricingCategoryEnum from "../../../../../models/PricingCategoryEnum";
 import UserDTO from "../../../../../models/UserDTO";
-import userService from "../../../../../services/user.service";
 import RoleEnum from "../../../../../models/RoleEnum";
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs, { Dayjs } from "dayjs";
+import {TimePicker} from '@mui/x-date-pickers/TimePicker';
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, {Dayjs} from "dayjs";
 
 export const UserForm: React.FC<{ itemToEdit: UserDTO, setEdited: any }> = (props) => {
 

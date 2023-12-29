@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 const ProtectedRoute: React.FC<{ user: any, redirectPath: string, children: any, isAdmin?: boolean, isDoctor?: boolean }> = (props) => {
     if (!props.user.accessToken) {

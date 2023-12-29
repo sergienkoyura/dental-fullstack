@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
-import publicService from "../../../../services/public.service";
-import PricingDTO from "../../../../models/PricingDTO";
-import { SpinnerLoading } from "../../../utils/SpinnerLoading";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs, { Dayjs } from "dayjs";
-import TimeEnum from "../../../../models/TimeEnum";
+import {useEffect, useState} from "react";
+import {SpinnerLoading} from "../../../utils/SpinnerLoading";
+import {DateCalendar} from "@mui/x-date-pickers/DateCalendar";
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, {Dayjs} from "dayjs";
 import TokenService from "../../../../services/token.service";
 import doctorService from "../../../../services/doctor.service";
 import AppointmentDTO from "../../../../models/AppointmentDTO";

@@ -1,6 +1,7 @@
-import { Link, NavLink, useHistory } from "react-router-dom";
+import {Link, NavLink, useHistory} from "react-router-dom";
 import img from "../../assets/images/logo192.png";
 import authService from "../../services/auth.service";
+
 export const Header = () => {
     const history = useHistory();
 

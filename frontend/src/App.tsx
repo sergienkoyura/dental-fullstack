@@ -1,24 +1,21 @@
-import React, { useCallback } from 'react';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
-import { Redirect, Route, Router, Switch, useHistory } from 'react-router-dom';
-import { Home } from './layouts/pages/home/Home';
-import { Header } from './layouts/utils/Header';
-import { Footer } from './layouts/utils/Footer';
-import { About } from './layouts/pages/about/About';
-import { Pricing } from './layouts/pages/pricing/Pricing';
-import { Doctors } from './layouts/pages/doctors/Doctors';
-import { Contact } from './layouts/pages/contact/Contact';
+import {About} from './layouts/pages/about/About';
+import {Contact} from './layouts/pages/contact/Contact';
+import {Doctors} from './layouts/pages/doctors/Doctors';
+import {Home} from './layouts/pages/home/Home';
 import Login from './layouts/pages/loginAndRegister/Login';
 import Register from './layouts/pages/loginAndRegister/Register';
+import {Pricing} from './layouts/pages/pricing/Pricing';
 import Profile from './layouts/pages/profile/Profile';
+import {Footer} from './layouts/utils/Footer';
+import {Header} from './layouts/utils/Header';
 
-import authService from './services/auth.service';
-import AuthVerify from './common/EventBus';
-import ProtectedRoute from './layouts/utils/ProtectedRoute';
-import Appointments from './layouts/pages/appointments/Appointments';
 import Admin from './layouts/pages/admin/Admin';
+import Appointments from './layouts/pages/appointments/Appointments';
+import {Hub} from './layouts/pages/patients/Hub';
 import PrivateRoute from './layouts/utils/PrivateRoute';
-import { Hub } from './layouts/pages/patients/Hub';
+import authService from './services/auth.service';
 
 function App() {
   const isAuthenticated = authService.getCurrentUser()?.accessToken !== null;

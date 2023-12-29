@@ -1,6 +1,7 @@
-import { useState } from "react";
+import {useState} from "react";
 import ManagePricing from "./components/pricing/ManagePricing";
 import ManageUsers from "./components/users/ManageUsers";
+
 export const Admin = () => {
     const [tabClick, setTabClick] = useState(false);
 

@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import PricingDTO from "../../../../../models/PricingDTO";
+import {useEffect, useState} from "react";
 import adminService from "../../../../../services/admin.service";
-import { SpinnerLoading } from "../../../../utils/SpinnerLoading";
-import PricingList, { UserList } from "./UserList";
-import PricingForm, { UserForm } from "./UserForm";
+import {SpinnerLoading} from "../../../../utils/SpinnerLoading";
+import {UserList} from "./UserList";
+import {UserForm} from "./UserForm";
 import UserDTO from "../../../../../models/UserDTO";
-import userService from "../../../../../services/user.service";
 
 export const ManageUsers = () => {
 

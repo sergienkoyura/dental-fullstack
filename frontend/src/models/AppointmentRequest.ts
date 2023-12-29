@@ -1,5 +1,3 @@
-import UserDTO from "./UserDTO";
-
 class AppointmentRequest{
     description: string;
     status: string;

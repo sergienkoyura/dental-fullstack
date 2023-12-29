@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import PricingDTO from "../../../../../models/PricingDTO";
 import adminService from "../../../../../services/admin.service";
 import TimeEnum from "../../../../../models/TimeEnum";

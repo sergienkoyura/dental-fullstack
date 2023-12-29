@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { Heading } from "./components/Heading";
-import { Lists } from "./components/Lists";
+import {useEffect} from "react";
+import {Heading} from "./components/Heading";
+import {Lists} from "./components/Lists";
 
 export const About = () => {
 

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import UserDTO from "../../../../models/UserDTO";
 import publicService from "../../../../services/public.service";
 import Doctor from "./Doctor";
-import { SpinnerLoading } from "../../../utils/SpinnerLoading";
+import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 
 export const DoctorsList = () => {
 

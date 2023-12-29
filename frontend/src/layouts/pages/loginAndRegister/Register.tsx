@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import React, {useEffect, useState} from "react";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import authService from "./../../../services/auth.service";
-import { Link, useHistory } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 export const Register = () => {
     const history = useHistory();

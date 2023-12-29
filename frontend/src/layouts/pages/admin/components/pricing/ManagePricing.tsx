@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import PricingDTO from "../../../../../models/PricingDTO";
-import adminService from "../../../../../services/admin.service";
-import { SpinnerLoading } from "../../../../utils/SpinnerLoading";
+import {SpinnerLoading} from "../../../../utils/SpinnerLoading";
 import PricingList from "./PricingList";
 import PricingForm from "./PricingForm";
 import publicService from "../../../../../services/public.service";

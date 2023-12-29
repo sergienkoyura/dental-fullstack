@@ -1,8 +1,7 @@
 import AppointmentDTO from "../../../../models/AppointmentDTO";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import TimeEnum from "../../../../models/TimeEnum";
 import appointmentService from "../../../../services/appointment.service";
-import PaymentModal from "./PaymentModal";
 
 export const AppointmentBlock: React.FC<{ item: AppointmentDTO, setState: any, isHistory: boolean, setItem?: any }> = (props) => {
 

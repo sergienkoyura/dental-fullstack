@@ -1,10 +1,10 @@
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import {CardElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import AppointmentDTO from "../../../../models/AppointmentDTO";
-import { useState } from "react";
+import {useState} from "react";
 import PaymentInfoRequest from "../../../../models/PaymentInfoRequest";
 import paymentService from "../../../../services/payment.service";
 import authService from "../../../../services/auth.service";
-import { StripeCardElement } from "@stripe/stripe-js";
+import {StripeCardElement} from "@stripe/stripe-js";
 
 export const PaymentModal: React.FC<{ item?: AppointmentDTO, changeState: any }> = (props) => {
 

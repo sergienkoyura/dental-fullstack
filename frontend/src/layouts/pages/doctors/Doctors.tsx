@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { DoctorsList } from "./components/DoctorsList";
-import { Heading } from "./components/Heading";
+import {useEffect} from "react";
+import {DoctorsList} from "./components/DoctorsList";
+import {Heading} from "./components/Heading";
 
 export const Doctors = () => {
 

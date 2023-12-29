@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import authService from "../../../../services/auth.service";
 
 export const Carousel = () => {

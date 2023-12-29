@@ -1,5 +1,4 @@
-import { useState } from "react";
-import PricingDTO from "../../../../../models/PricingDTO";
+import {useState} from "react";
 import adminService from "../../../../../services/admin.service";
 import UserDTO from "../../../../../models/UserDTO";
 

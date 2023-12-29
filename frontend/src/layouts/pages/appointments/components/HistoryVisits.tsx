@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import AppointmentDTO from "../../../../models/AppointmentDTO";
 import appointmentService from "../../../../services/appointment.service";
-import { SpinnerLoading } from "../../../utils/SpinnerLoading";
+import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 import AppointmentBlock from "./AppointmentBlock";
-import { Pagination } from "../../../utils/Pagination";
+import {Pagination} from "../../../utils/Pagination";
 
 export const HistoryVisits: React.FC<{}> = (props) => {
     const [scheduled, setScheduled] = useState<AppointmentDTO[]>();

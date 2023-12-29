@@ -1,9 +1,5 @@
 import AppointmentDTO from '../models/AppointmentDTO';
 import AppointmentRequest from '../models/AppointmentRequest';
-import MedicalCardDTO from '../models/MedicalCardDTO';
-import PasswordRequest from '../models/PasswordRequest';
-import TimeEnum from '../models/TimeEnum';
-import UserDTO from '../models/UserDTO';
 import api from './api';
 
 class AppointmentService {

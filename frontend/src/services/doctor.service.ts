@@ -1,5 +1,4 @@
 import AppointmentDTO from "../models/AppointmentDTO";
-import MedicalCardDTO from "../models/MedicalCardDTO";
 import UserDTO from "../models/UserDTO";
 import api from "./api";
 

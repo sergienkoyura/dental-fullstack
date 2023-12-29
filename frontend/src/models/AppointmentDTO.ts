@@ -1,4 +1,3 @@
-import TimeEnum from "./TimeEnum";
 import UserDTO from "./UserDTO";
 
 class AppointmentDTO{

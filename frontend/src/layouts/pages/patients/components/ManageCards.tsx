@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import authService from "../../../../services/auth.service";
+import {useEffect, useState} from "react";
 import MedicalCardDTO from "../../../../models/MedicalCardDTO";
 import userService from "../../../../services/user.service";
-import { SpinnerLoading } from "../../../utils/SpinnerLoading";
+import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 import doctorService from "../../../../services/doctor.service";
 import UserDTO from "../../../../models/UserDTO";
-import { error } from "console";
 
 const ManageCards = () => {
 

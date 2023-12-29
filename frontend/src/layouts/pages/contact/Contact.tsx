@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { ContactForm } from "./components/ContactForm";
-import { Heading } from "./components/Heading";
+import {useEffect} from "react";
+import {ContactForm} from "./components/ContactForm";
+import {Heading} from "./components/Heading";
 
 export const Contact = () => {
 

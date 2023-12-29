@@ -1,7 +1,6 @@
-import { useState } from "react";
+import {useState} from "react";
 import ManageAccount from "./components/ManageAccount";
 import ManageCard from "./components/ManageCard";
-import Verification from "../../utils/Verification";
 
 export const Profile = () => {
     const [tabClick, setTabClick] = useState(false);

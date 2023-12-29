@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { Heading } from "./components/Heading";
-import { PriceList } from "./components/PriceList";
+import {useEffect} from "react";
+import {Heading} from "./components/Heading";
+import {PriceList} from "./components/PriceList";
 
 export const Pricing = () => {
 

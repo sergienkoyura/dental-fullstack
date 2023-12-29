@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import authService from "../../../../services/auth.service";
 import userService from "../../../../services/user.service";
-import { SpinnerLoading } from "../../../utils/SpinnerLoading";
+import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 import UserDTO from "../../../../models/UserDTO";
 import PasswordRequest from "../../../../models/PasswordRequest";
 import Verification from "../../../utils/Verification";
