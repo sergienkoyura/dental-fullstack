@@ -1,0 +1,161 @@
+.main-bg-aqua {
+    background-color: #80a3a5;
+}
+
+.main-bg-beige {
+    background-color: #eeeeee;
+}
+
+.main-bg-semidark {
+    background-color: #7aa6aa !important;
+}
+
+.main-bg-dark {
+    background-color: #3B6063;
+}
+
+.main-text-aqua {
+    color: #80a3a5;
+}
+
+.main-text-beige,
+a.main-text-beige:focus,
+a.main-text-beige:focus-visible {
+    color: #eeeeee;
+}
+
+.main-text-semidark {
+    color: #65A2A7;
+}
+
+.main-text-dark {
+    color: #3B6063 !important;
+}
+
+.main-text-dark td {
+    color: #3B6063 !important;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.main-button-outline-white {
+    border: 1px solid #eeeeee;
+    color: #eeeeee;
+}
+
+.main-button-outline-white:hover {
+    background-color: #eeeeee;
+    color: #3B6063;
+}
+
+.main-button-outline-dark {
+    border: 1px solid #3B6063;
+    color: #3B6063;
+}
+
+.main-button-outline-dark:focus{
+    color: #3B6063;
+    box-shadow: 0 0 0 0.25rem rgba(180, 180, 180, 0.25);
+    background-color: whitesmoke;
+}
+
+.main-button-outline-dark:hover {
+    background-color: #3B6063;
+    color: #eeeeee;
+}
+
+.main-button-dark {
+    background-color: #3B6063;
+    color: #eeeeee;
+}
+.main-button-dark-nh{
+    background-color: #3B6063;
+    color: #eeeeee;
+}
+.main-button-dark-nh:hover{
+    background-color: #3B6063;
+    color: #eeeeee;
+}
+
+.main-button-dark:hover {
+    background-color: #eeeeee;
+    border: 1px solid #3B6063;
+    color: #3B6063;
+}
+
+#heading-pricing {
+    height: 500px;
+    background-image: url("/src/assets/images/clinic-3.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.img-bg-about {
+    height: 400px;
+    background-image: url("/src/assets/images/clinic-2.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-fixed {
+    padding: 0;
+    min-height: 400px;
+    background-image: url("/src/assets/images/clinic.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.main-link-dark {
+    color: #3B6063;
+}
+
+.welcome-content {
+    background: rgb(238, 238, 238);
+    background: linear-gradient(0deg, rgba(238, 238, 238, 1) 0%, rgba(128, 163, 165, 1) 100%);
+}
+
+.img-card {
+    border-radius: 10px;
+}
+
+a.nav-link.active {
+    color: #eeeeee !important;
+}
+
+a.main-text-beige:hover {
+    color: #ffffff8c;
+}
+
+.price-block {
+    border: 3px solid #3B6063;
+    border-radius: 10px;
+}
+
+.card {
+    background-color: #eeeeee;
+}
+
+.main-tab-link, .main-tab-link:hover, .main-tab-link:focus, .main-tab-link:focus-visible {
+    color: #3B6063;
+}
+
+.main-tab-link:hover{
+    color: #10191a;
+}
+
+table{
+    --bs-table-bg: none !important;
+}
+
+
+.table-scrollable{
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.active>.page-link{
+    background-color: #3B6063;
+    border-color: #3B6063;
+}
