@@ -22,7 +22,7 @@ export const PaymentModal: React.FC<{ item?: AppointmentDTO, changeState: any }>
 
         setSubmitting(true);
 
-        let paymentInfo = new PaymentInfoRequest(props.item?.cost! * 100, "UAH", props.item!);
+        let paymentInfo = new PaymentInfoRequest(props.item?.pricing.cost! * 100, "UAH", props.item!);
         paymentService.paymentIntent(paymentInfo)
             .then((res) => {
                 const stripeResponse = res.data;
@@ -79,8 +79,8 @@ export const PaymentModal: React.FC<{ item?: AppointmentDTO, changeState: any }>
                         <div className="container">
                             <div className="mt-3">
                                 <div>
-                                    <h3>{props.item?.description}</h3>
-                                    <h6>Cost: {props.item?.cost} UAH</h6>
+                                    <h3>{props.item?.pricing.category}: {props.item?.pricing.service}</h3>
+                                    <h6>Cost: {props.item?.pricing.cost} UAH</h6>
                                     <hr />
                                     <CardElement id="card-element" />
                                 </div>

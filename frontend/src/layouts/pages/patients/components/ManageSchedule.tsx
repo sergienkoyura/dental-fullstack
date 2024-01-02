@@ -85,7 +85,7 @@ export const ManageSchedule: React.FC<{}> = (props) => {
                             <SpinnerLoading />
                         </div>
                         :
-                        <div className="table-scrollable">
+                        <div className="table-scrollable container-xl text-center">
                             {appointments && appointments.length > 0 ?
                                 appointments?.map(el => (
                                     <div key={el.id} className="card rounded-3 main-text-dark mb-3 p-2">
@@ -93,7 +93,7 @@ export const ManageSchedule: React.FC<{}> = (props) => {
                                         <h6>{el.patient.fullName}</h6>
                                         <h6>{el.patient.email}</h6>
                                         <h6>{dayjs(el.date).format("MMMM DD, YYYY, HH:mm")}</h6>
-                                        <p>{el.description}</p>
+                                        <p>{el.pricing.category}: {el.pricing.service}</p>
                                         <button className="btn main-button-dark" onClick={() => { handleComplete(el) }}>Complete</button>
                                     </div>
                                 ))

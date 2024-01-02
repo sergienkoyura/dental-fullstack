@@ -88,7 +88,7 @@ export const Register = () => {
 
                         <div className="form-group mb-4">
                             <label htmlFor="fullname"> Full Name </label>
-                            <Field name="fullname" type="text" className="form-control" />
+                            <Field name="fullname" type="text" className="form-control" pattern="[A-Za-z ]+" />
                             <ErrorMessage
                                 name="fullname"
                                 component="div"

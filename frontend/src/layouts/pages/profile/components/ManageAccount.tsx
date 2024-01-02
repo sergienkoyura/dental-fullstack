@@ -128,6 +128,7 @@ const ManageAccount = () => {
                             id="fullName"
                             type="text"
                             name="fullName"
+                            pattern="[A-Za-z ]+"
                             value={fullName || ""}
                             onChange={(e) => setFullName(e.target.value)}
                             className="form-control"

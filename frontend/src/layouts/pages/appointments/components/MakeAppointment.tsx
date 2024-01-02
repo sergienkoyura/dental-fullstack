@@ -72,8 +72,7 @@ export const MakeAppointment: React.FC<{}> = (props) => {
 
     function bookAppointment() {
         const appointment: AppointmentRequest = new AppointmentRequest(
-            selectedService?.category + ": " + selectedService?.service,
-            "scheduled", choice.key, selectedService?.cost, selectedService?.time,
+            "scheduled", choice.key, selectedService,
             TokenService.getUser()?.email, dayjs(choice.value).format("YYYY-MM-DDTHH:mm")
         );
 

@@ -17,12 +17,12 @@ export const AppointmentBlock: React.FC<{ item: AppointmentDTO, setState: any, i
             <div className="col-md-6 col-sm-12 p-3 d-flex justify-content-between flex-column">
                 <div className="container-fluid">
                     <h2>{dayjs(props.item.date).format("MMMM DD, YYYY, HH:mm")}</h2>
-                    <h5>Estimated time: {TimeEnum[props.item.duration as keyof typeof TimeEnum]}</h5>
-                    <p className="lead">{props.item.description}</p>
+                    <h5>Estimated time: {TimeEnum[props.item.pricing.time as keyof typeof TimeEnum]}</h5>
+                    <p className="lead">{props.item.pricing.category}: {props.item.pricing.service}</p>
                 </div>
                 <div className="container-fluid">
                     <div className="col-12 d-flex align-items-center">
-                        <p className="text-start m-0">Cost: {props.item.cost} UAH</p>
+                        <p className="text-start m-0">Cost: {props.item.pricing.cost} UAH</p>
                     </div>
                     {!props.isHistory && !props.item.paid &&
                         <div className="col-12 p-0">

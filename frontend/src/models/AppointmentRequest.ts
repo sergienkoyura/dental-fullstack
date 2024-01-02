@@ -1,18 +1,16 @@
+import PricingDTO from "./PricingDTO";
+
 class AppointmentRequest{
-    description: string;
     status: string;
     doctorFullName: string;
-    cost?: number;
-    duration?: string;
+    pricing?: PricingDTO;
     patientEmail?: string;
     date?: string;
     
-    constructor(description: string, status: string, doctor: string, cost?: number, duration?: string, patient?: string, date?: string, ){
-        this.description = description;
+    constructor(status: string, doctor: string, pricing?: PricingDTO, patient?: string, date?: string, ){
         this.status = status;
         this.doctorFullName = doctor;
-        this.cost = cost;
-        this.duration = duration;
+        this.pricing = pricing;
         this.patientEmail = patient;
         this.date = date;
     }

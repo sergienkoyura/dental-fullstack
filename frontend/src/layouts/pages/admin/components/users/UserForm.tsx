@@ -123,6 +123,7 @@ export const UserForm: React.FC<{ itemToEdit: UserDTO, setEdited: any }> = (prop
                         <input
                             id="fullName"
                             type="text"
+                            pattern="[A-Za-z ]+"
                             name="fullName"
                             value={user.fullName || ''}
                             onChange={(e) => setUser(prev => ({ ...prev, fullName: e.target.value }))}

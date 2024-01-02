@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  postgresdb:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=test123
+      - POSTGRES_PASSWORD=test321
+      - POSTGRES_DB=test123
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgres
+
+  server:
+    depends_on:
+      - postgresdb
+    build: ./backend
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url"  : "jdbc:postgresql://postgresdb:5432/test123",
+        "spring.datasource.username" : "test123",
+        "spring.datasource.password" : "test321",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    volumes:
+      - backend_m2:/backend/.m2
+
+  client:
+    build: ./frontend
+    restart: on-failure
+    ports:
+      - "3000:3000"
+
+volumes:
+  db:
+  backend_m2:
