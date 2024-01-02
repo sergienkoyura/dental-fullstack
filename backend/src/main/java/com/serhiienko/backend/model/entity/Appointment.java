@@ -22,12 +22,11 @@ public class Appointment {
     private Long id;
     private Date date;
     @Enumerated(EnumType.STRING)
-    private EstimatedTime duration;
-    private String description;
-    @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
-    private double cost;
     private boolean paid;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "pricing_id", referencedColumnName = "id")
+    private Pricing pricing;
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private User patient;

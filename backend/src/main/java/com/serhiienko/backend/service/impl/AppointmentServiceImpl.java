@@ -37,13 +37,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment = null;
         try {
             appointment = Appointment.builder()
-                    .description(appointmentRequest.getDescription())
                     .status(appointmentRequest.getStatus())
-                    .duration(appointmentRequest.getDuration())
                     .date(sdf.parse(appointmentRequest.getDate()))
                     .doctor(userService.getDoctorByFullName(appointmentRequest.getDoctorFullName()))
                     .patient(userService.getUserByEmail(appointmentRequest.getPatientEmail()))
-                    .cost(appointmentRequest.getCost())
+                    .pricing(appointmentRequest.getPricing())
                     .build();
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -60,12 +58,10 @@ public class AppointmentServiceImpl implements AppointmentService {
                 AppointmentDTO.builder()
                         .id(el.getId())
                         .date(el.getDate())
-                        .duration(el.getDuration())
-                        .description(el.getDescription())
                         .status(el.getStatus())
                         .patient(UserMapper.MAPPER.mapToDTO(el.getPatient()))
                         .doctor(UserMapper.MAPPER.mapToDTO(el.getDoctor()))
-                        .cost(el.getCost())
+                        .pricing(el.getPricing())
                         .paid(el.isPaid())
                         .build()
         );
@@ -120,7 +116,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 if (dto.getDoctor().getId().equals(key.getId())) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(dto.getDate());
-                    calendar.add(Calendar.MINUTE, (int) dto.getDuration().getTime());
+                    calendar.add(Calendar.MINUTE, (int) dto.getPricing().getTime().getTime());
                     Date dateTo = calendar.getTime();
 
                     intervals.get(key).removeIf(el -> {

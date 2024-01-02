@@ -26,6 +26,10 @@ public class PublicController {
     public ResponseEntity<List<Pricing>> getAll(){
         return ResponseEntity.ok(pricingService.getAll());
     }
+    @GetMapping("/test")
+    public ResponseEntity<?> test(){
+        return ResponseEntity.ok("test");
+    }
 
     @GetMapping("/users/doctors")
     public ResponseEntity<List<UserDTO>> getAllDoctors(){

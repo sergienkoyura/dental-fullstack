@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
         if (userRequest.getEmail().equals("admin@admin.com")){
             throw new BadRequestException("You can't edit this admin!");
         }
-        if ((userRequest.getId() == null || userRequest.getId() == 0) && user != null ||
+        if ((userRequest.getId() == null || userRequest.getId() == 0) && user != null || user == null &&
                 userRepository.existsByEmail(userRequest.getEmail())){
             throw new BadRequestException("User with this email exists!");
         }
