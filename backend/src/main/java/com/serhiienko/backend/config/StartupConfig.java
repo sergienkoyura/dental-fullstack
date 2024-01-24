@@ -24,7 +24,7 @@ public class StartupConfig implements ApplicationRunner {
                     .fullName("admin")
                     .description("admin")
                     .verified(true)
-                    .password(passwordEncoder.encode("admin"))
+                    .password(passwordEncoder.encode("admin1"))
                     .role(Role.ROLE_ADMIN)
                     .medicalCard(new MedicalCard())
                     .build());
