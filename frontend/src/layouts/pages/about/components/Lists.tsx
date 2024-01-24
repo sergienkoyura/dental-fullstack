@@ -7,7 +7,7 @@ export const Lists = () => {
             <div className="img-bg-about">
             </div>
             <div className="mt-3">
-                <div className="row">
+                <div className="row m-0">
                     <div className="col-12 main-text-dark">
                         <div className="px-5">
                             <h3 className="fw-semibold text-center py-2">Why Choose SmileWorks?</h3>
