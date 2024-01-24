@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
-import {SpinnerLoading} from "../../../utils/SpinnerLoading";
-import {DateCalendar} from "@mui/x-date-pickers/DateCalendar";
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs, {Dayjs} from "dayjs";
+import { useEffect, useState } from "react";
+import { SpinnerLoading } from "../../../utils/SpinnerLoading";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { Dayjs } from "dayjs";
 import TokenService from "../../../../services/token.service";
 import doctorService from "../../../../services/doctor.service";
 import AppointmentDTO from "../../../../models/AppointmentDTO";
@@ -24,24 +24,24 @@ export const ManageSchedule: React.FC<{}> = (props) => {
 
     useEffect(() => {
         setIsLoading(true);
-        if (isDoctor){
+        if (isDoctor) {
             doctorService.getAppointmentsByDate(date?.format("YYYY-MM-DD"))
-            .then((res) => {
-                setAppointments(res.data);
-                window.scrollTo(0, 0);
-            })
-            .catch((err) => setHttpError(err.message))
-            .finally(() => setIsLoading(false))
+                .then((res) => {
+                    setAppointments(res.data);
+                    window.scrollTo(0, 0);
+                })
+                .catch((err) => setHttpError(err.message))
+                .finally(() => setIsLoading(false))
         } else {
             adminService.getAppointmentsByDate(date?.format("YYYY-MM-DD"))
-            .then((res) => {
-                setAppointments(res.data);
-                window.scrollTo(0, 0);
-            })
-            .catch((err) => setHttpError(err.message))
-            .finally(() => setIsLoading(false))
+                .then((res) => {
+                    setAppointments(res.data);
+                    window.scrollTo(0, 0);
+                })
+                .catch((err) => setHttpError(err.message))
+                .finally(() => setIsLoading(false))
         }
-        
+
     }, [date, state]);
 
     if (httpError) {
@@ -50,6 +50,29 @@ export const ManageSchedule: React.FC<{}> = (props) => {
                 <p>{httpError}</p>
             </div>
         );
+    }
+
+    function handleCancel(item: AppointmentDTO) {
+        //TODO: cancel func
+        doctorService.cancelAppointment(item)
+            .then(() => {
+                setState(!state);
+
+            })
+            .catch((err) => {
+                setHttpError(err.response.data.message)
+            })
+    }
+
+    function handleSetPaid(item: AppointmentDTO) {
+        doctorService.setPaid(item)
+            .then(() => {
+                setState(!state);
+
+            })
+            .catch((err) => {
+                setHttpError(err.response.data.message)
+            })
     }
 
     function handleComplete(item: AppointmentDTO) {
@@ -94,7 +117,14 @@ export const ManageSchedule: React.FC<{}> = (props) => {
                                         <h6>{el.patient.email}</h6>
                                         <h6>{dayjs(el.date).format("MMMM DD, YYYY, HH:mm")}</h6>
                                         <p>{el.pricing.category}: {el.pricing.service}</p>
-                                        <button className="btn main-button-dark" onClick={() => { handleComplete(el) }}>Complete</button>
+                                        {!el.paid ?
+                                            <>
+                                                <button className="btn main-button-dark m-1" onClick={() => { handleSetPaid(el) }}>Set Paid</button>
+                                                <button className="btn main-button-dark m-1" onClick={() => { handleCancel(el) }}>Cancel</button>
+                                            </>
+                                            :
+                                            <button className="btn main-button-dark m-1" onClick={() => { handleComplete(el) }}>Complete</button>
+                                        }
                                     </div>
                                 ))
                                 :

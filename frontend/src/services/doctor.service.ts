@@ -11,8 +11,16 @@ class DoctorService {
         })
     }
 
+    setPaid(data: AppointmentDTO) {
+        return api.patch(`secure/appointments/pay/${data.id}`)
+    }
+    
     completeAppointment(data: AppointmentDTO) {
         return api.patch(`secure/appointments/complete/${data.id}`)
+    }
+
+    cancelAppointment(data: AppointmentDTO) {
+        return api.delete(`secure/appointments/${data.id}`)
     }
 
     getAllUsers(){
