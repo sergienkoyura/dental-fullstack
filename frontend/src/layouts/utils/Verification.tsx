@@ -23,6 +23,10 @@ export const Verification = (setState: any) => {
     }
 
     function verifyCode() {
+        if(code.length > 4){
+            setMessage("Code must contain 4 digits")
+            return;
+        }
         setIsLoading(true);
         setMessage("")
         verificationService.verify(code)
@@ -43,7 +47,7 @@ export const Verification = (setState: any) => {
             <div className="alert alert-warning">
                 <h3>Your account is not verified.</h3>
                 <p className="m-0">Code was sent to your email. Enter it to verify account:</p>
-                <input value={code} onChange={(e) => setCode(e.target.value)} type="text" className="form-control w-auto d-inline me-3 my-2" />
+                <input value={code} onChange={(e) => setCode(e.target.value)} type="number" className="form-control w-auto d-inline me-3 my-2" />
                 <button onClick={() => verifyCode()} className="btn btn-success d-inline me-2" disabled={isLoading}>
                     {isLoading && (
                         <span className="spinner-border spinner-border-sm"></span>

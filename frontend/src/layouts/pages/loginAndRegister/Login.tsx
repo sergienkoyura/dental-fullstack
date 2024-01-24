@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {Link, useHistory} from "react-router-dom";
-import {ErrorMessage, Field, Form, Formik} from "formik";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import authService from "./../../../services/auth.service";
 
@@ -10,6 +10,13 @@ export const Login = () => {
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+
+
+    useEffect(() => {
+        if (authService.getCurrentUser()?.accessToken) {
+            history.push("/home");
+        }
+    }, []);
 
     const initialValues: {
         email: string;
@@ -21,9 +28,25 @@ export const Login = () => {
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
+            .test(
+                "len",
+                "Email is too long",
+                (val: any) =>
+                    val &&
+                    val.toString().length <= 255
+            )
             .email("This is not a valid email.")
             .required("This field is required!"),
-        password: Yup.string().required("This field is required!"),
+        password: Yup.string()
+            .test(
+                "len",
+                "The password must be between 6 and 64 characters.",
+                (val: any) =>
+                    val &&
+                    val.toString().length >= 6 &&
+                    val.toString().length <= 64
+            )
+            .required("This field is required!"),
     });
 
     const handleLogin = (formValue: { email: string; password: string }) => {

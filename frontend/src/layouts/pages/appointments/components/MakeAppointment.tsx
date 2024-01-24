@@ -1,11 +1,11 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import publicService from "../../../../services/public.service";
 import PricingDTO from "../../../../models/PricingDTO";
-import {SpinnerLoading} from "../../../utils/SpinnerLoading";
-import {DateCalendar} from "@mui/x-date-pickers/DateCalendar";
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs, {Dayjs} from "dayjs";
+import { SpinnerLoading } from "../../../utils/SpinnerLoading";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { Dayjs } from "dayjs";
 import TimeEnum from "../../../../models/TimeEnum";
 import appointmentService from "../../../../services/appointment.service";
 import AppointmentRequest from "../../../../models/AppointmentRequest";
@@ -30,7 +30,12 @@ export const MakeAppointment: React.FC<{}> = (props) => {
     const [intervals, setIntervals] = useState<Data>();
     const [choice, setChoice] = useState({ key: '', value: '' });
 
+    const [state, setState] = useState(false);
+    const [message, setMessage] = useState("");
+
     useEffect(() => {
+        setMessage("");
+
         publicService.getAllPricings()
             .then((res) => {
                 setPriceList(res.data);
@@ -41,6 +46,8 @@ export const MakeAppointment: React.FC<{}> = (props) => {
     }, []);
 
     useEffect(() => {
+        setMessage("");
+
         if (date) {
             setLoadingIntervals(true)
             appointmentService.getAvailableIntervals(date.format("YYYY-MM-DD"), selectedService?.time)
@@ -56,7 +63,7 @@ export const MakeAppointment: React.FC<{}> = (props) => {
             setChoice({ key: '', value: '' });
         }
 
-    }, [date]);
+    }, [date, state]);
 
     if (isLoading) {
         return <SpinnerLoading />;
@@ -80,6 +87,10 @@ export const MakeAppointment: React.FC<{}> = (props) => {
             .then(() => {
                 document.getElementById("scheduled-visits-tab")?.click();
             })
+            .catch((err) => {
+                setMessage(err.response.data.message);
+                window.scrollTo(0,0);
+            })
     }
 
     return (
@@ -96,7 +107,7 @@ export const MakeAppointment: React.FC<{}> = (props) => {
                         </button>
                         <ul className="dropdown-menu w-100 table-scrollable" aria-labelledby="dropdownMenuButton1">
                             {priceList?.map(el => (
-                                <li key={el.id} style={{ cursor: "pointer" }} onClick={() => { setSelectedService(el); setDate(undefined) }}>
+                                <li key={el.id} style={{ cursor: "pointer" }} onClick={() => { setSelectedService(el); setDate(undefined); setMessage(""); }}>
                                     <a className="dropdown-item">
                                         {el.category}: {el.service}
                                     </a>
@@ -111,6 +122,10 @@ export const MakeAppointment: React.FC<{}> = (props) => {
                         }
                     </div>
                 </div>
+
+                {message &&
+                    <p className="text-danger">{message}</p>
+                }
                 {selectedService &&
                     <>
                         <div className="row container-xl">
@@ -151,6 +166,7 @@ export const MakeAppointment: React.FC<{}> = (props) => {
                                 }
                             </div>
                         </div>
+
                         {choice.key.length > 0 &&
                             <div className="row container-xl">
                                 <div className="d-flex justify-content-center">

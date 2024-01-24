@@ -1,12 +1,14 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import adminService from "../../../../../services/admin.service";
 import UserDTO from "../../../../../models/UserDTO";
 import RoleEnum from "../../../../../models/RoleEnum";
-import {TimePicker} from '@mui/x-date-pickers/TimePicker';
-import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs, {Dayjs} from "dayjs";
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { TimeField } from '@mui/x-date-pickers/TimeField';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { Dayjs } from "dayjs";
+import { TimeValidationError } from "@mui/x-date-pickers";
 
 export const UserForm: React.FC<{ itemToEdit: UserDTO, setEdited: any }> = (props) => {
 
@@ -18,24 +20,83 @@ export const UserForm: React.FC<{ itemToEdit: UserDTO, setEdited: any }> = (prop
 
     const [submitting, setSubmitting] = useState(false);
     const [alertStyle, setAlertStyle] = useState("alert-info");
+
+    const [errorFrom, setErrorFrom] = useState<TimeValidationError | null>(null);
+    const [errorTo, setErrorTo] = useState<TimeValidationError | null>(null);
+
+
     useEffect(() => {
         setUser(props.itemToEdit);
         setMessage("");
+        setErrorFrom(null);
+        setErrorTo(null);
 
-        setFromTime(dayjs(`2023-01-01T${props.itemToEdit.fromTime ? props.itemToEdit.fromTime: "09:00"}`))
-        setToTime(dayjs(`2023-01-01T${props.itemToEdit.toTime ? props.itemToEdit.toTime: "18:00"}`))
+        setFromTime(dayjs(`2023-01-01T${props.itemToEdit.fromTime ? props.itemToEdit.fromTime : "09:00"}`))
+        setToTime(dayjs(`2023-01-01T${props.itemToEdit.toTime ? props.itemToEdit.toTime : "18:00"}`))
 
         props.itemToEdit.id === 0 ? window.scrollTo(0, 0) : document.getElementById("userFormId")?.scrollIntoView();
     }, [props.itemToEdit]);
 
     function saveUser() {
-        setSubmitting(true);
         let userToSave: UserDTO = user;
-        if (user.role && user.role === 'ROLE_DOCTOR') {
-            userToSave.fromTime = fromTime?.format("HH:mm");
-            userToSave.toTime = toTime?.format("HH:mm");
+
+        if (userToSave.email != null && (userToSave.email.length > 255 ||
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userToSave.email))) {
+            setMessage("Invalid email!");
+            setAlertStyle("alert-danger");
+            return;
         }
 
+        if (userToSave.password == null ||
+            userToSave.password != null && (userToSave.password.length < 6 || userToSave.password.length > 64)) {
+            setMessage("Password must be between 6 and 64 characters!");
+            setAlertStyle("alert-danger");
+            return;
+        }
+
+        if (userToSave.fullName == null ||
+            userToSave.fullName != null && (userToSave.fullName.length < 5 || userToSave.fullName.length > 50)) {
+            setMessage("Full name must be between 5 and 50 characters!");
+            setAlertStyle("alert-danger");
+            return;
+        }
+
+        if (userToSave.fullName != null && !/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/.test(userToSave.fullName)) {
+            setMessage("Full name is invalid!");
+            setAlertStyle("alert-danger");
+            return;
+        }
+
+        if (user.role && user.role === 'ROLE_ADMIN') {
+            userToSave.verified = true;
+        }
+
+        if (user.role && user.role === 'ROLE_DOCTOR') {
+
+            if (errorFrom || errorTo) {
+                setMessage("Invalid date!");
+                setAlertStyle("alert-danger");
+                return;
+            }
+
+            userToSave.verified = true;
+            userToSave.fromTime = fromTime?.format("HH:mm");
+            userToSave.toTime = toTime?.format("HH:mm");
+
+            if (userToSave.description == null || userToSave.description == ""
+                || userToSave.image == null) {
+                setMessage("Invalid data for Doctor!");
+                setAlertStyle("alert-danger");
+                return;
+            }
+            if (userToSave.description.length > 1500) {
+                setMessage("Description is too long!");
+                setAlertStyle("alert-danger");
+                return;
+            }
+        }
+
+        setSubmitting(true);
         adminService.addUser(userToSave)
             .then((res) => {
                 setUser(prev => ({ ...prev, id: res.data.id }))
@@ -101,6 +162,7 @@ export const UserForm: React.FC<{ itemToEdit: UserDTO, setEdited: any }> = (prop
                             className="form-control"
                             required
                             placeholder="Email"
+                            readOnly={user.id ? true : false}
                         />
                     </div>
 
@@ -123,7 +185,6 @@ export const UserForm: React.FC<{ itemToEdit: UserDTO, setEdited: any }> = (prop
                         <input
                             id="fullName"
                             type="text"
-                            pattern="[A-Za-z ]+"
                             name="fullName"
                             value={user.fullName || ''}
                             onChange={(e) => setUser(prev => ({ ...prev, fullName: e.target.value }))}
@@ -133,19 +194,21 @@ export const UserForm: React.FC<{ itemToEdit: UserDTO, setEdited: any }> = (prop
                         />
                     </div>
 
-                    <div className="form-group mb-4">
-                        <label htmlFor="description">Description</label>
-                        <textarea
-                            id="description"
-                            name="description"
-                            rows={4}
-                            value={user.description || ''}
-                            onChange={(e) => setUser(prev => ({ ...prev, description: e.target.value }))}
-                            className="form-control"
-                            required
-                            placeholder="Description of doctor"
-                        />
-                    </div>
+                    {user.role && user.role === 'ROLE_DOCTOR' &&
+                        <div className="form-group mb-4">
+                            <label htmlFor="description">Description</label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows={4}
+                                value={user.description || ''}
+                                onChange={(e) => setUser(prev => ({ ...prev, description: e.target.value }))}
+                                className="form-control"
+                                required
+                                placeholder="Description of doctor"
+                            />
+                        </div>
+                    }
 
                     <div className="form-group mb-4 dropdown">
                         <label htmlFor="dropdownMenuButton1">Select Role</label>
@@ -178,62 +241,77 @@ export const UserForm: React.FC<{ itemToEdit: UserDTO, setEdited: any }> = (prop
                                     <TimePicker
                                         label="Start from"
                                         value={fromTime}
-                                        onChange={(newValue) => {setFromTime(newValue);}}
+                                        onChange={(newValue) => { setFromTime(newValue); }}
+                                        minutesStep={15}
+                                        skipDisabled={true}
+                                        maxTime={toTime}
+                                        onError={(e) => setErrorFrom(e)}
                                     />
                                     <TimePicker
                                         label="Work till"
                                         value={toTime}
-                                        onChange={(newValue) => {setToTime(newValue);}}
+                                        onChange={(newValue) => { setToTime(newValue); }}
+                                        minutesStep={15}
+                                        skipDisabled={true}
+                                        minTime={fromTime}
+                                        onError={(e) => setErrorTo(e)}
                                     />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </div>
                     }
 
-                    <div className="form-group mb-4">
-                        <div className="w-100"><span>Verified</span></div>
-                        <label className="form-switch pointer">
-                            <input
-                                id="verified"
-                                role="switch"
-                                type="checkbox"
-                                name="verified"
-                                checked={user.verified}
-                                onChange={(e) => setUser(prev => ({ ...prev, verified: e.target.checked }))}
-                                className="pointer form-check-input"
-                            />
-                        </label>
-                    </div>
+                    {user.role && user.role === 'ROLE_USER' &&
+                        <div className="form-group mb-4">
+                            <div className="w-100"><span>Verified</span></div>
+                            <label className="form-switch pointer">
+                                <input
+                                    id="verified"
+                                    role="switch"
+                                    type="checkbox"
+                                    name="verified"
+                                    checked={user.verified}
+                                    onChange={(e) => setUser(prev => ({ ...prev, verified: e.target.checked }))}
+                                    className="pointer form-check-input"
+                                />
+                            </label>
+                        </div>
+                    }
 
 
-                    <div className="form-group mb-4">
-                        <label htmlFor="image">Image</label>
-                        <input
-                            id="image"
-                            type="file"
-                            accept="image/jpeg"
-                            name="image"
-                            onChange={(e) => base64Convertion(e)}
-                            className="d-none"
-                        />
-                        <input
-                            type="button"
-                            className="form-control main-button-outline-dark"
-                            onClick={() => document.getElementById("image")?.click()}
-                            value={user.image ? "Choose another one..." : "Browse..."}
-                        />
-                    </div>
+                    {user.role && user.role === 'ROLE_DOCTOR' &&
+                        <>
+                            <div className="form-group mb-4">
+                                <label htmlFor="image">Image</label>
+                                <input
+                                    id="image"
+                                    type="file"
+                                    accept="image/jpeg"
+                                    name="image"
+                                    onChange={(e) => base64Convertion(e)}
+                                    className="d-none"
+                                />
+                                <input
+                                    type="button"
+                                    className="form-control main-button-outline-dark"
+                                    onClick={() => document.getElementById("image")?.click()}
+                                    value={user.image ? "Choose another one..." : "Browse..."}
+                                />
+                            </div>
 
-                    <div className="form-group mb-4">
-                        {user.image && (
-                            <iframe
-                                title="Image viewer"
-                                src={"data:image/jpeg;base64," + user.image}
-                                width="100%"
-                                height="600px"
-                            ></iframe>
-                        )}
-                    </div>
+                            <div className="form-group mb-4">
+                                {user.image && (
+                                    <iframe
+                                        title="Image viewer"
+                                        src={"data:image/jpeg;base64," + user.image}
+                                        width="100%"
+                                        height="600px"
+                                    ></iframe>
+                                )}
+                            </div>
+                        </>
+
+                    }
                 </div>
 
                 <div className="form-group d-flex justify-content-center">

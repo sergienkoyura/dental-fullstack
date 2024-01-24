@@ -14,6 +14,7 @@ const ManageCard = () => {
     const [card, setCard] = useState<MedicalCardDTO>({});
     const [messageCard, setMessageCard] = useState("");
     const [submittingCard, setSubmittingCard] = useState(false);
+    const [alertStyle, setAlertStyle] = useState("alert-info");
 
 
 
@@ -66,16 +67,19 @@ const ManageCard = () => {
     }
 
     function submitCard() {
-        //setCard(prev => ({...prev,  newestResults: pdf }));
+
+
         setSubmittingCard(true);
         userService.saveCard(card)
             .then((res) => {
                 setMessageCard("Saved!");
+                setAlertStyle("alert-info");
                 setSaved(!saved);
                 window.scrollTo(0, 0);
             })
             .catch((err: any) => {
                 setMessageCard(err?.response?.data?.message || "Error occurred");
+                setAlertStyle("alert-danger");
             })
             .finally(() => {
                 setSubmittingCard(false);
@@ -90,7 +94,7 @@ const ManageCard = () => {
 
             {messageCard && (
                 <div className="form-group d-flex justify-content-center">
-                    <div className="alert alert-info px-3 my-2 text-center d-inline" role="alert">
+                    <div className={"alert px-3 my-2 text-center d-inline " + alertStyle} role="alert">
                         {messageCard}
                     </div>
                 </div>

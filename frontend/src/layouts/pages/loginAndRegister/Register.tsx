@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {ErrorMessage, Field, Form, Formik} from "formik";
+import React, { useEffect, useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import authService from "./../../../services/auth.service";
-import {Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export const Register = () => {
     const history = useHistory();
@@ -10,8 +10,11 @@ export const Register = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
 
-    useEffect(()=>{
+    useEffect(() => {
         window.scrollTo(0, 0);
+        if (authService.getCurrentUser()?.accessToken) {
+            history.push("/home");
+        }
     }, []);
 
     const initialValues = {
@@ -23,20 +26,39 @@ export const Register = () => {
 
     const validationSchema = Yup.object().shape({
         fullname: Yup.string()
+            .test(
+                "len",
+                "Full name must be between 5 and 50 characters.",
+                (val: any) =>
+                    val &&
+                    val.toString().length >= 5 &&
+                    val.toString().length <= 50
+            )
+            .matches(
+                /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/,
+                "Full name is invalid"
+            )
             .required("This field is required!"),
 
         email: Yup.string()
+            .test(
+                "len",
+                "Email is too long",
+                (val: any) =>
+                    val &&
+                    val.toString().length <= 255
+            )
             .email("This is not a valid email.")
             .required("This field is required!"),
 
         password: Yup.string()
             .test(
                 "len",
-                "The password must be between 6 and 40 characters.",
+                "The password must be between 6 and 64 characters.",
                 (val: any) =>
                     val &&
                     val.toString().length >= 6 &&
-                    val.toString().length <= 40
+                    val.toString().length <= 64
             )
             .required("This field is required!"),
 
@@ -88,7 +110,7 @@ export const Register = () => {
 
                         <div className="form-group mb-4">
                             <label htmlFor="fullname"> Full Name </label>
-                            <Field name="fullname" type="text" className="form-control" pattern="[A-Za-z ]+" />
+                            <Field name="fullname" type="text" className="form-control" />
                             <ErrorMessage
                                 name="fullname"
                                 component="div"
@@ -98,7 +120,7 @@ export const Register = () => {
 
                         <div className="form-group mb-4">
                             <label htmlFor="email"> Email </label>
-                            <Field name="email" type="email" className="form-control" autoComplete="username"/>
+                            <Field name="email" type="email" className="form-control" autoComplete="username" />
                             <ErrorMessage
                                 name="email"
                                 component="div"

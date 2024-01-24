@@ -24,6 +24,7 @@ export const ContactForm = () => {
             setMessage("Please verify reCAPTCHA")
             setIsError(true)
         } else {
+
             setLoading(true);
             publicService.sendContact(new ContactRequest(fullName, email, description))
                 .then(() => {
@@ -35,7 +36,7 @@ export const ContactForm = () => {
                 })
                 .catch((err) => {
                     setIsError(true);
-                    setMessage(err.message);
+                    setMessage(err.response.data.message);
                 })
                 .finally(() => {
                     setLoading(false);
