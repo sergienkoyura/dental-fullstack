@@ -1,10 +1,12 @@
 package com.serhiienko.backend.repository;
 
 import com.serhiienko.backend.model.entity.Appointment;
+import com.serhiienko.backend.model.entity.User;
 import com.serhiienko.backend.model.enumeration.AppointmentStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
@@ -26,4 +28,14 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     order by a.date asc
 """)
     List<Appointment> findAllByDateAndStatus(Date date, AppointmentStatus status);
+
+    boolean existsByDateAndDoctorId(Date date, Long doctorId);
+
+    @Modifying
+    @Query("""
+    UPDATE Appointment a
+    SET a.status = 'visited'
+    WHERE date(a.date) < NOW()
+""")
+    void completeAllExpired();
 }

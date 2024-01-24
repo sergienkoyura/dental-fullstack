@@ -26,4 +26,8 @@ public interface AppointmentService {
     List<AppointmentDTO> getAppointmentsByDateAndStatus(Date date, AppointmentStatus status);
 
     HashMap<String, List<Date>> getAvailableIntervals(Date date, EstimatedTime time, String email);
+
+    void setPaid(Long id);
+
+    void completeAllExpired();
 }

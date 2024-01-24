@@ -119,4 +119,11 @@ public class AppointmentController {
         appointmentService.complete(id);
         return ResponseEntity.ok("completed");
     }
+
+    @PatchMapping("/pay/{id}")
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('ADMIN')")
+    public ResponseEntity<String> payForAppointment(@PathVariable Long id) throws ParseException {
+        appointmentService.setPaid(id);
+        return ResponseEntity.ok("completed");
+    }
 }
