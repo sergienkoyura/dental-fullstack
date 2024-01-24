@@ -1,9 +1,11 @@
 package com.serhiienko.backend.service.impl;
 
+import com.serhiienko.backend.exception.BadRequestException;
 import com.serhiienko.backend.exception.ItemNotFoundException;
 import com.serhiienko.backend.model.dto.AppointmentDTO;
 import com.serhiienko.backend.model.dto.UserDTO;
 import com.serhiienko.backend.model.entity.Appointment;
+import com.serhiienko.backend.model.entity.User;
 import com.serhiienko.backend.model.enumeration.AppointmentStatus;
 import com.serhiienko.backend.model.enumeration.EstimatedTime;
 import com.serhiienko.backend.model.form.AppointmentRequest;
@@ -34,12 +36,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public AppointmentDTO save(AppointmentRequest appointmentRequest) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-        Appointment appointment = null;
+        Appointment appointment;
         try {
+            User doctor = userService.getDoctorByFullName(appointmentRequest.getDoctorFullName());
+            if (appointmentRepository.existsByDateAndDoctorId(sdf.parse(appointmentRequest.getDate()), doctor.getId())){
+                throw new BadRequestException("This time is taken, choose another one");
+            }
             appointment = Appointment.builder()
                     .status(appointmentRequest.getStatus())
                     .date(sdf.parse(appointmentRequest.getDate()))
-                    .doctor(userService.getDoctorByFullName(appointmentRequest.getDoctorFullName()))
+                    .doctor(doctor)
                     .patient(userService.getUserByEmail(appointmentRequest.getPatientEmail()))
                     .pricing(appointmentRequest.getPricing())
                     .build();
@@ -83,9 +89,29 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new ItemNotFoundException("Appointment not found");
         });
 
+        if (appointment.isPaid()){
+            appointment.setStatus(AppointmentStatus.visited);
+            appointmentRepository.save(appointment);
+        } else {
+            throw new BadRequestException("Appointment is not paid");
+        }
+
+    }
+
+    @Override
+    public void setPaid(Long id) {
+        Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> {
+            throw new ItemNotFoundException("Appointment not found");
+        });
+
         appointment.setPaid(true);
-        appointment.setStatus(AppointmentStatus.visited);
         appointmentRepository.save(appointment);
+    }
+
+    @Override
+    @Transactional
+    public void completeAllExpired() {
+        appointmentRepository.completeAllExpired();
     }
 
     @Override

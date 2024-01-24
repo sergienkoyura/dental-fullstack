@@ -30,7 +30,9 @@ public class UserController {
         if (bindingResult.hasErrors()){
             if (bindingResult.getFieldError("email") != null)
                 throw new BadRequestException("Email is invalid!");
-            throw new BadRequestException("Fields can't be blank!");
+            if (bindingResult.getFieldError("length") != null)
+                throw new BadRequestException("One of the fields is not in the bounds");
+            throw new BadRequestException("Bad Request!");
         }
         return ResponseEntity.ok(userService.save(userRequest));
     }

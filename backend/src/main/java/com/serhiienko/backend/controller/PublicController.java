@@ -6,6 +6,7 @@ import com.serhiienko.backend.model.form.ContactRequest;
 import com.serhiienko.backend.service.PricingService;
 import com.serhiienko.backend.service.UserService;
 import com.serhiienko.backend.util.MailingUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class PublicController {
     }
 
     @PostMapping("/contact")
-    public ResponseEntity<String> sendContact(@RequestBody ContactRequest contactRequest){
+    public ResponseEntity<String> sendContact(@RequestBody @Valid ContactRequest contactRequest){
         String message = "Full name: " + contactRequest.getFullName() + "\nDescription: " + contactRequest.getDescription();
         mailingUtil.sendMessage(emailAdmin, contactRequest.getEmail(), message);
         return ResponseEntity.ok("sent!");

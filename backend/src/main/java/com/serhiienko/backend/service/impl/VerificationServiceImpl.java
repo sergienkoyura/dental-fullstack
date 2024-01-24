@@ -55,6 +55,7 @@ public class VerificationServiceImpl implements VerificationService {
     }
 
     @Override
+    @Transactional
     public void verify(String email, String code) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> {
             throw new BadRequestException("User doesn't exist!");
@@ -63,14 +64,14 @@ public class VerificationServiceImpl implements VerificationService {
         Optional<Verification> verification = verificationRepository.findByUserId(user.getId());
         if (verification.isPresent()){
             if (verification.get().getCode().equals(code)){
-                verificationRepository.delete(verification.get());
+                verificationRepository.deleteByUserId(user.getId());
                 user.setVerified(true);
                 userRepository.save(user);
             } else {
                 throw new BadRequestException("Code doesn't match");
             }
         } else{
-            throw new BadRequestException("VerificationController is not generated");
+            throw new BadRequestException("Verification is not generated");
         }
     }
 }

@@ -34,9 +34,6 @@ public class PricingController {
     @PostMapping("/secure/pricing")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> savePricing(@RequestBody @Valid Pricing pricing, BindingResult bindingResult) throws BadRequestException{
-        if (bindingResult.hasErrors()){
-            throw new BadRequestException("Fields can't be blank!");
-        }
         return ResponseEntity.ok(pricingService.save(pricing));
     }
 }

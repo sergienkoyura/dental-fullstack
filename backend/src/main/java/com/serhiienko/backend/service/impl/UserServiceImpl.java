@@ -78,9 +78,12 @@ public class UserServiceImpl implements UserService {
         if (userRequest.getEmail().equals("admin@admin.com")){
             throw new BadRequestException("You can't edit this admin!");
         }
-        if ((userRequest.getId() == null || userRequest.getId() == 0) && user != null || user == null &&
-                userRepository.existsByEmail(userRequest.getEmail())){
+        if (((userRequest.getId() == null || userRequest.getId() == 0) && user != null) ||
+                user == null && userRepository.existsByEmail(userRequest.getEmail())){
             throw new BadRequestException("User with this email exists!");
+        }
+        if (user != null && !user.getEmail().equals(userRequest.getEmail())){
+            throw new BadRequestException("You can't change user's email!");
         }
 
         User userToSave = UserMapper.MAPPER.mapToEntity(userRequest);
