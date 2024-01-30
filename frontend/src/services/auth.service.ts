@@ -27,7 +27,6 @@ class AuthService {
             })
             .then(() => {
                 TokenService.removeUser();
-                window.location.reload();
             });
     }
 

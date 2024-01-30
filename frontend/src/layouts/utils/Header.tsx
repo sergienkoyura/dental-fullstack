@@ -7,7 +7,6 @@ export const Header = () => {
 
     function logoutAction() {
         authService.logout().then(() => {
-            history.push("/home");
             window.location.reload();
         })
     }
