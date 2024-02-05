@@ -17,7 +17,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Build Project
-        run: mvn clean install -DskipTests
+        run: | 
+          cd backend
+          mvn clean install -DskipTests
       - name: Upload Artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
