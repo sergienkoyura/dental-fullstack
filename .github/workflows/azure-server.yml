@@ -20,6 +20,15 @@ jobs:
         run: | 
           cd backend
           mvn clean install -DskipTests
+        env:
+          SPRING.DATASOURCE.USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+          SPRING_MAIL_USERNAME: ${{ secrets.SPRING_MAIL_USERNAME }}
+          SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD }}
+          APPLICATION_SECURITY_JWT_SECRET_KEY: ${{ secrets.APPLICATION_SECURITY_JWT_SECRET_KEY }}
+          STRIPE_KEY_SECRET: ${{ secrets.STRIPE_KEY_SECRET }}
+          APPLICATION_EMAIL_MAIN_ADMIN: ${{ secrets.APPLICATION_EMAIL_MAIN_ADMIN }}
       - name: Upload Artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
