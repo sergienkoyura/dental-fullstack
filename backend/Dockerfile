@@ -4,6 +4,6 @@ WORKDIR /backend
 COPY . .
 RUN mvn clean package
 
-expose 8080
+EXPOSE 8080
 
 CMD mvn spring-boot:run
