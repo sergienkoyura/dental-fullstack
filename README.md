@@ -1,4 +1,4 @@
-![image](https://github.com/sergienkoyura/dental-fullstack/assets/89968126/15010291-bb27-4276-9966-e74b324c32c9)# Web application "Smileworks"
+# Web application "Smileworks"
 It is a web application where users can schedule a meeting with doctors and send them their test results. 
 ## Technologies
 * Java 17
@@ -21,8 +21,6 @@ It is a web application where users can schedule a meeting with doctors and send
 * Respond to patients
 * Create patients, doctors and admins
 ## Interface
-![Home page](https://github.com/sergienkoyura/rental-fullstack/assets/89968126/f9d1d10e-6984-4e22-a551-fc6c209f15f1)
-##
 ![Home page](https://github.com/sergienkoyura/dental-fullstack/assets/89968126/b9ca4d5c-b1ca-4057-af95-7243a9482ad3)
 ##
 ![Pricing](https://github.com/sergienkoyura/dental-fullstack/assets/89968126/b0b5a9b1-59d6-4d3b-9739-17df6993a700)
